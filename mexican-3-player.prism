@@ -1,0 +1,67 @@
+// Mexican Standoff PRISM-like
+
+csg
+
+player p1 
+	shooter1
+endplayer
+
+player p2 
+	shooter2
+endplayer
+
+player p3 
+	shooter3
+endplayer
+
+const max_health = 2;
+
+global health1 : int init max_health;
+global health2 : int init max_health;
+global health3 : int init max_health;
+
+label "alive1" = health1 > 0;
+label "alive2" = health2 > 0;
+label "alive3" = health3 > 0;
+
+module shooter1
+    [p1wait] true -> 1 : true;
+    [p1shoot2] health1 > 0 & health2 > 0 -> 1 : true;
+    [p1shoot3] health1 > 0 & health3 > 0 -> 1 : true;
+endmodule
+
+module shooter2 = shooter1 [health1=health2, health2=health1, p1wait=p2wait, p1shoot2=p2shoot1, p1shoot3=p2shoot3] endmodule
+module shooter3 = shooter1 [health1=health3, health3=health1, p1wait=p3wait, p1shoot2=p3shoot2, p1shoot3=p3shoot1] endmodule
+
+module channel
+[p1wait,p2wait,p3wait] true -> 1 : true;
+[p1wait,p2wait,p3shoot1] true -> 1 : (health1' = health1-1);
+[p1wait,p2wait,p3shoot2] true -> 1 : (health2' = health2-1);
+[p1wait,p2shoot1,p3wait] true -> 1 : (health1' = health1-1);
+[p1wait,p2shoot1,p3shoot1] true -> 1 : (health1' = health1-2);
+[p1wait,p2shoot1,p3shoot2] true -> 1 : (health1' = health1-1) & (health2' = health2-1);
+[p1wait,p2shoot3,p3wait] true -> 1 : (health3' = health3-1);
+[p1wait,p2shoot3,p3shoot1] true -> 1 : (health3' = health3-1) & (health1' = health1-1);
+[p1wait,p2shoot3,p3shoot2] true -> 1 : (health3' = health3-1) & (health2' = health2-1);
+
+[p1shoot2,p2wait,p3wait] true -> 1 : (health2' = health2-1);
+[p1shoot2,p2wait,p3shoot1] true -> 1 : (health2' = health2-1) & (health1' = health1-1);
+[p1shoot2,p2wait,p3shoot2] true -> 1 : (health2' = health2-2);
+[p1shoot2,p2shoot1,p3wait] true -> 1 : (health2' = health2-1) & (health1' = health1-1);
+[p1shoot2,p2shoot1,p3shoot1] true -> 1 : (health2' = health2-1) & (health1' = health1-2);
+[p1shoot2,p2shoot1,p3shoot2] true -> 1 : (health2' = health2-2) & (health1' = health1-1);
+[p1shoot2,p2shoot3,p3wait] true -> 1 : (health2' = health2-1) & (health3' = health3-1);
+[p1shoot2,p2shoot3,p3shoot1] true -> 1 : (health2' = health2-1) & (health3' = health3-1) & (health1' = health1-1);
+[p1shoot2,p2shoot3,p3shoot2] true -> 1 : (health2' = health2-2) & (health3' = health3-1);
+
+[p1shoot3,p2wait,p3wait] true -> 1 : (health3' = health3-1);
+[p1shoot3,p2wait,p3shoot1] true -> 1 : (health3' = health3-1) & (health1' = health1-1);
+[p1shoot3,p2wait,p3shoot2] true -> 1 : (health3' = health3-1) & (health2' = health2-1);
+[p1shoot3,p2shoot1,p3wait] true -> 1 : (health3' = health3-1) & (health1' = health1-1);
+[p1shoot3,p2shoot1,p3shoot1] true -> 1 : (health3' = health3-1) & (health1' = health1-2);
+[p1shoot3,p2shoot1,p3shoot2] true -> 1 : (health3' = health3-1) & (health1' = health1-1) & (health2' = health2-1);
+[p1shoot3,p2shoot3,p3wait] true -> 1 : (health3' = health3-2);
+[p1shoot3,p2shoot3,p3shoot1] true -> 1 : (health3' = health3-2) & (health1' = health1-1);
+[p1shoot3,p2shoot3,p3shoot2] true -> 1 : (health3' = health3-1) & (health2' = health2-1);
+        
+endmodule
