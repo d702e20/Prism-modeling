@@ -14,7 +14,7 @@ player p3
 	shooter3
 endplayer
 
-const max_health = 2;
+const max_health = 3;
 
 global health1 : int init max_health;
 global health2 : int init max_health;
@@ -31,7 +31,7 @@ label "alive2" = health2 > 0;
 label "alive3" = health3 > 0;
 
 module shooter1
-    [p1wait] true -> 1 : true;
+    [p1wait] true -> 1 : (p1shoot2' = 0)&(p1shoot3' = 0);
     [p1shoot2] (health1-(p2shoot1+p3shoot1)) > 0 & health2 > 0 -> 1 : (p1shoot2' = 1)&(p1shoot3' = 0);
     [p1shoot3] (health1-(p2shoot1+p3shoot1)) > 0 & health3 > 0 -> 1 : (p1shoot3' = 1)&(p1shoot2' = 0);
 endmodule
@@ -40,7 +40,7 @@ module shooter2 = shooter1 [health1=health2, health2=health1, p1wait=p2wait, p1s
 module shooter3 = shooter1 [health1=health3, health3=health1, p1wait=p3wait, p1shoot2=p3shoot2, p1shoot3=p3shoot1] endmodule
 
 module tracker1
-	[] health1 > 0 -> 1: (health1' = health1 - (p2shoot1 + p3shoot1));
+	[] health1 > 0 -> 1: (health1' = max(health1 - (p2shoot1 + p3shoot1),0));
 endmodule
 
 module tracker2 = tracker1 [health1 = health2, p2shoot1 = p1shoot2, p3shoot1 = p3shoot2] endmodule
