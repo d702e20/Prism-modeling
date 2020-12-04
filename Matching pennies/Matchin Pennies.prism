@@ -1,0 +1,40 @@
+// Matching pennies
+
+csg
+
+player odd_penny
+    odd_penny_player
+endplayer
+
+player even_penny
+    even_penny_player
+endplayer
+
+const int winning_sum = 100;
+
+global even_sum : int init winning_sum / 2;
+global odd_sum : int init winning_sum / 2;
+
+global even_heads : int init 0;
+global even_tails : int init 0;
+global odd_heads : int init 0;
+global odd_tails : int init 0;
+
+
+label "game_over" = odd_sum >= winning_sum || even_sum >= winning_sum;
+label "odd_player_won" = odd_head * even_tails + odd_tails * even_heads;
+label "even_player_won" = odd_head * even_heads + odd_tails * even_tails;
+
+module even_penny_player
+    [heads] even_sum < winning_sum & odd_sum < winning_sum -> 1 : (even_heads = 1)&(even_tails = 0);
+    [tails] even_sum < winning_sum & odd_sum < winning_sum -> 1 : (even_heads = 0)&(even_tails = 1);
+endmodule
+
+module odd_penny_player = even_penny_player[even_heads=odd_heads, even_tails=odd_tails] endmodule
+
+module tracker_for_even
+    [] even_sum < winning_sum -> 1: (even_sum' =min(max(sum + (odd_heads * even_heads + odd_tails * even_tails +(-1 * (odd_heads * even_tails + odd_tails * even_heads))), 0), winning_sum))
+endmodule
+
+module tracker_for_odd = [even_sum=odd_sum, even_heads=even_tails, even_tails=even_heads] endmodule
+

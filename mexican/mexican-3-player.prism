@@ -14,7 +14,7 @@ player p3
 	shooter3
 endplayer
 
-const max_health = 2;
+const int max_health = 2;
 
 global health1 : int init max_health;
 global health2 : int init max_health;
