@@ -1,0 +1,41 @@
+// 2-player Mexican Standoff
+
+csg
+
+// Player blocks declares which modules and actions a player has control over
+player p1 
+	shooter1
+endplayer
+
+player p2 
+	shooter2
+endplayer
+
+const max_health = 1;
+
+// Global variables to track health of the shooters
+global health1 : int init max_health;
+global health2 : int init max_health;
+
+// Labels to see if the shooters are still alive
+label "alive1" = health1 > 0;
+label "alive2" = health2 > 0;
+
+// Shooter1 can either wait, and nothing happens. Or if the guard that health1 and health2 is larger than 0 is true, shooter 1 can shoot shooter2
+module shooter1
+    [p1wait] true -> 1 : true;
+    [p1shoot2] health1 > 0 & health2 > 0 -> 1 : true;
+endmodule
+
+// shooter2 uses shooter1 module as template, but with some actions/variables changed. e.g health1 is now health2 in shooter2 
+module shooter2 = shooter1 [health1=health2, health2=health1, p1wait=p2wait, p1shoot2=p2shoot1] endmodule
+
+// A communication channel between the shooters.
+// Lists all the possible combination of actions, and updates the health of the shooters
+// All possible combination of actions must be listed, because a module REEEs if there are two actions active at the same that it can synchronise on
+module channel
+	[p1wait,p2wait] true -> 1 : true;
+	[p1shoot2, p2wait] true -> 1 : (health2' = health2-1);
+	[p1wait, p2shoot1] true -> 1 : (health1' = health1-1);
+	[p1shoot2, p2shoot1] true -> 1 : (health1' = health1-1) & (health2'=health2-1);
+endmodule
