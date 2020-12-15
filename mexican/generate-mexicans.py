@@ -158,7 +158,7 @@ def make_channel():
                 if int(target) == x:
                     x_gets_hit += 1
             if 0 < x_gets_hit:
-                health_update += f"(health{x}' = health{x}-{x_gets_hit})"
+                health_update += f"(health{x}' = max(health{x}-{x_gets_hit}, 0))"
 
                 hits_so_far += x_gets_hit
 
