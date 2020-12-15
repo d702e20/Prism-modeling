@@ -174,8 +174,12 @@ def main():
 
 
 if __name__ == "__main__":
-    max_mexicans = int(sys.argv[1])
-    max_lives = int(sys.argv[2])
+    mexicans = sys.argv[1].split(',')
+    min_mexicans = int(mexicans[0])
+    max_mexicans = int(mexicans[1])
+    lives = sys.argv[2].split(',')
+    min_lives = int(lives[0])
+    max_lives = int(lives[1])
     if max_lives > 7:
         print("Too many mexicans, lowering to max 7")
         max_mexicans = 7
