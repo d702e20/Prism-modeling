@@ -7,7 +7,7 @@ def make_header(num_of_mexicans, num_of_lives, prismfile):
     prismfile.write("csg \n\n")
 
 
-def make_players(num_of_mexicans, num_of_lives, prismfile):
+def make_players(num_of_mexicans, prismfile):
     for x in range(num_of_mexicans):
         player = f"player p{x + 1}\n \tshooter{x + 1}\nendplayer\n\n"
         prismfile.write(player)
@@ -20,7 +20,7 @@ def make_const_globals(num_of_mexicans, num_of_lives, prismfile):
         prismfile.write(f"global health{x + 1} : int init max_health;\n")
 
 
-def make_labels(num_of_mexicans, num_of_lives, prismfile):
+def make_labels(num_of_mexicans, prismfile):
     # "All_died" label
     alldied = "label \"all_died\" = "
     for x in range(num_of_mexicans):
@@ -51,7 +51,7 @@ def make_labels(num_of_mexicans, num_of_lives, prismfile):
     prismfile.write("\n")
 
 
-def make_shooters(num_of_mexicans, num_of_lives, prismfile):
+def make_shooters(num_of_mexicans, prismfile):
     # The first shooter which defines actions
     first_shooter = "module shooter1\n\t[p1wait] true -> true;\n"
     for x in range(num_of_mexicans - 1):
@@ -86,7 +86,7 @@ def make_shooters(num_of_mexicans, num_of_lives, prismfile):
         prismfile.write(shooter + "\n")
 
 
-def make_channel(num_of_mexicans, num_of_lives, prismfile):
+def make_channel(num_of_mexicans, prismfile):
     prismfile.write("\nmodule channel\n")
 
     # Multidimensional array to hold possible actions per player
@@ -161,17 +161,22 @@ def make_channel(num_of_mexicans, num_of_lives, prismfile):
 
 
 def main():
-    for num_of_mexicans in range(2, 7):
-        for num_of_lives in range(1, 4):
+    for num_of_mexicans in range(2, max_mexicans + 1):
+        for num_of_lives in range(1, max_lives + 1):
             prismfile = open(f'mexican-{num_of_mexicans}-players-{num_of_lives}-lives.prism', 'w')
             make_header(num_of_mexicans, num_of_lives, prismfile)
-            make_players(num_of_mexicans, num_of_lives, prismfile)
+            make_players(num_of_mexicans, prismfile)
             make_const_globals(num_of_mexicans, num_of_lives, prismfile)
-            make_labels(num_of_mexicans, num_of_lives, prismfile)
-            make_shooters(num_of_mexicans, num_of_lives, prismfile)
-            make_channel(num_of_mexicans, num_of_lives, prismfile)
+            make_labels(num_of_mexicans, prismfile)
+            make_shooters(num_of_mexicans, prismfile)
+            make_channel(num_of_mexicans, prismfile)
             prismfile.close()
 
 
 if __name__ == "__main__":
+    max_mexicans = int(sys.argv[1])
+    max_lives = int(sys.argv[2])
+    if max_lives > 7:
+        print("Too many mexicans, lowering to max 7")
+        max_mexicans = 7
     main()
