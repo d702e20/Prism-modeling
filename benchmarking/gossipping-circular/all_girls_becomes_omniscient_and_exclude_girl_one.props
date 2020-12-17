@@ -1,0 +1,4 @@
+
+// Gossiping girls Circular
+// All girls becomes omniscient and exclude girl one
+<<p2,p3,p4>> P>=1 [F !"omniscient1" & "omniscient2" & "omniscient3" & "omniscient4"]
