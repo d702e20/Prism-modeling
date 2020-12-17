@@ -1,0 +1,15 @@
+// Gossiping guirls Circular
+// Girl one guarantee to become omiscient before 10 steps
+<<p1>> P>=1 [(round < 10 U "omniscient1")]
+
+// Gossiping guirls Circular
+// All girls guarantee girl one becomes omiscient before 10 steps
+<<p1,p2,p3,p4>> P>=1 [(round < 10 U "omniscient1")]
+
+// Gossiping guirls Circular
+// All girls guarantee all girls becomes omniscient before 10 steps
+<<p1,p2,p3,p4>> P>=1 [(round < 10 U "allomniscient")]
+
+// Gossiping guirls Circular
+// All guirls becomes omniscient and exclude girl one
+<<p2,p3,p4>> P>=1 [F !"omniscient1" & "omniscient2" & "omniscient3" & "omniscient4"]
