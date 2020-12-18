@@ -1,0 +1,22 @@
+// Mexican Standoff
+// 3 player, 2 can guarantee 1 survieves TRUE
+<<p1, p2>>P>=1 [G ("alive1"| "alive2")]
+
+// Mexican Standoff
+// 4 | 5 player, 3 can guarantee 1 survieves TRUE
+<<p1, p2, p3>>P>=1 [G ("alive1"| "alive2"| "alive3")]
+
+// Mexican Standoff
+// 5 player, 3 can guarantee 1 survieves TRUE
+<<p1, p2, p3>>P>=1 [G ("alive1"| "alive2"| "alive3")]
+
+// Mexican Standoff
+// 6 player, 4 can guarantee 1 survieves TRUE
+<<p1, p2, p3, p4>>P>=1 [G ("alive1"| "alive2"| "alive3"| "alive4")]
+
+// 6 player, 3 can guarantee 1 survieves FLASE
+<<p1, p2, p3>>P>=1 [G ("alive1"| "alive2"| "alive3")]
+
+// Mexican Standoff
+// 7 player, 4 can guarantee 1 survieves TRUE
+<<p1, p2, p3, p4>>P>=1 [G ("alive1"| "alive2"| "alive3"| "alive4")]

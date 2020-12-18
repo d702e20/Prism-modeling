@@ -17,6 +17,7 @@ const int kmax = 10; // number of rounds
 const int emax = 1000; // cap on the capital held by each player
 const int einit = 10; // initial endowment 
 const double f = 10; // multiplier
+const simulated_comma = 1;
 
 // round counter
 module counter
