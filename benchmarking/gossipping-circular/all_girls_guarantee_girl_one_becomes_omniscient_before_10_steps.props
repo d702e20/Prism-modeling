@@ -1,4 +1,0 @@
-// Gossiping girls Circular
-// All girls guarantee girl one becomes omiscient before 10 steps
-<<p1,p2,p3,p4>> P>=1 [(round < 10 U "omniscient1")]
-

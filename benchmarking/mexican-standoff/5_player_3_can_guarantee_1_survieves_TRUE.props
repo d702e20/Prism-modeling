@@ -1,3 +1,0 @@
-// Mexican Standoff
-// 5 player, 3 can guarantee 1 survives TRUE
-<<p1, p2, p3>>P>=1 [F (("alive1"| "alive2"| "alive3") & !"alive4" & !"alive5")]

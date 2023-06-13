@@ -17,7 +17,7 @@ def make_const_globals(num_of_mexicans, num_of_lives, prismfile):
     prismfile.write(f"const int max_health = {num_of_lives};\n\n")
 
     for x in range(num_of_mexicans):
-        prismfile.write(f"global health{x + 1} : int init max_health;\n")
+        prismfile.write(f"global health{x + 1} : [0..max_health] init max_health;\n")
 
 
 def make_labels(num_of_mexicans, prismfile):
@@ -116,7 +116,7 @@ def make_channel(num_of_mexicans, prismfile):
     next_action_to_be_used = [0 for row in range(num_of_mexicans)]
     # Total number of rows of actions
     for x in range(combinations):
-        current_action = "["
+        current_action = "  ["
 
         # How many players in each action (line)
         for y in range(num_of_mexicans):
@@ -147,7 +147,7 @@ def make_channel(num_of_mexicans, prismfile):
                 if int(target) == x:
                     x_gets_hit += 1
             if 0 < x_gets_hit:
-                health_update += f"(health{x}' = max(health{x}-{x_gets_hit}, 0))"
+                health_update += f"(health{x}' = (health{x}-{x_gets_hit}))"
 
                 hits_so_far += x_gets_hit
 
@@ -180,7 +180,7 @@ if __name__ == "__main__":
     lives = sys.argv[2].split(',')
     min_lives = int(lives[0])
     max_lives = int(lives[1])
-    if max_lives > 7:
+    if max_mexicans > 7:
         print("Too many mexicans, lowering to max 7")
         max_mexicans = 7
     main()

@@ -1,3 +1,0 @@
-// Matching penny
-// both players guarantee that odd_sum is larger than or eq to even player untill gameover
-<<even,odd>> P>=1 [(odd_sum >= even_sum U gameover)]

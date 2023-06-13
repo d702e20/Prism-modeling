@@ -1,0 +1,183 @@
+// Gossipping Girls Total
+
+csg
+
+player p1 
+	girl1
+endplayer
+
+player p2 
+	girl2
+endplayer
+
+player p3 
+	girl3
+endplayer
+
+player p4 
+	girl4
+endplayer
+
+// Girl1's secrets
+global g1s1 : bool init true;
+global g1s2 : bool init false;
+global g1s3 : bool init false;
+global g1s4 : bool init false;
+
+// Girl2's secrets
+global g2s1 : bool init false;
+global g2s2 : bool init true;
+global g2s3 : bool init false;
+global g2s4 : bool init false;
+
+// Girl3's secrets
+global g3s1 : bool init false;
+global g3s2 : bool init false;
+global g3s3 : bool init true;
+global g3s4 : bool init false;
+
+// Girl4's secrets
+global g4s1 : bool init false;
+global g4s2 : bool init false;
+global g4s3 : bool init false;
+global g4s4 : bool init true;
+
+//Handy shorthands
+formula g1g2s1 = g1s1 | g2s1;
+formula g1g2s2 = g1s2 | g2s2;
+formula g1g2s3 = g1s3 | g2s3;
+formula g1g2s4 = g1s4 | g2s4;
+
+formula g1g3s1 = g1s1 | g3s1;
+formula g1g3s2 = g1s2 | g3s2;
+formula g1g3s3 = g1s3 | g3s3;
+formula g1g3s4 = g1s4 | g3s4;
+
+formula g1g4s1 = g1s1 | g4s1;
+formula g1g4s2 = g1s2 | g4s2;
+formula g1g4s3 = g1s3 | g4s3;
+formula g1g4s4 = g1s4 | g4s4;
+
+formula g2g3s1 = g2s1 | g3s1;
+formula g2g3s2 = g2s2 | g3s2;
+formula g2g3s3 = g2s3 | g3s3;
+formula g2g3s4 = g2s4 | g3s4;
+
+formula g2g4s1 = g2s1 | g4s1;
+formula g2g4s2 = g2s2 | g4s2;
+formula g2g4s3 = g2s3 | g4s3;
+formula g2g4s4 = g2s4 | g4s4;
+
+formula g3g4s1 = g3s1 | g4s1;
+formula g3g4s2 = g3s2 | g4s2;
+formula g3g4s3 = g3s3 | g4s3;
+formula g3g4s4 = g3s4 | g4s4;
+
+//labels to find out when girls know all secrets
+label "omniscient1" = g1s1 & g1s2 & g1s3 & g1s4;
+label "omniscient2" = g2s1 & g2s2 & g2s3 & g2s4;
+label "omniscient3" = g3s1 & g3s2 & g3s3 & g3s4;
+label "omniscient4" = g4s1 & g4s2 & g4s3 & g4s4;
+label "allomniscient" = g1s1 & g1s2 & g1s3 & g1s4 & g2s1 & g2s2 & g2s3 & g2s4 & g3s1 & g3s2 & g3s3 & g3s4&  g4s1 & g4s2 & g4s3 & g4s4;
+
+const int roundmax = 20;
+global round : [0..roundmax] init 0;
+module counter
+
+	[] round<=roundmax -> (round'=min(round+1,roundmax));
+
+endmodule
+
+module girl1
+    [g1callg2] round <= roundmax -> true;
+    [g1callg3] round <= roundmax -> true;
+    [g1callg4] round <= roundmax -> true;
+endmodule
+
+module girl2 = girl1 [g1callg2 = g2callg1, g1callg3 = g2callg3, g1callg4 = g2callg4] endmodule
+module girl3 = girl1 [g1callg2 = g3callg2, g1callg3 = g3callg1, g1callg4 = g3callg4] endmodule
+module girl4 = girl1 [g1callg2 = g4callg2, g1callg3 = g4callg3, g1callg4 = g4callg1] endmodule
+
+module channel
+[g1callg2,g2callg1,g3callg1,g4callg1] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg1,g4callg2] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg1,g4callg3] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg2,g4callg1] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg2,g4callg2] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg2,g4callg3] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg4,g4callg1] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg4,g4callg2] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4);
+[g1callg2,g2callg1,g3callg4,g4callg3] true -> (g1s1' = g1g2s1) & (g1s2' = g1g2s2) & (g1s3' = g1g2s3) & (g1s4' = g1g2s4) & (g2s1' = g1g2s1) & (g2s2' = g1g2s2) & (g2s3' = g1g2s3) & (g2s4' = g1g2s4) & (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg2,g2callg3,g3callg1,g4callg1] true -> true;
+[g1callg2,g2callg3,g3callg1,g4callg2] true -> true;
+[g1callg2,g2callg3,g3callg1,g4callg3] true -> true;
+[g1callg2,g2callg3,g3callg2,g4callg1] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg2,g2callg3,g3callg2,g4callg2] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg2,g2callg3,g3callg2,g4callg3] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg2,g2callg3,g3callg4,g4callg1] true -> true;
+[g1callg2,g2callg3,g3callg4,g4callg2] true -> true;
+[g1callg2,g2callg3,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg2,g2callg4,g3callg1,g4callg1] true -> true;
+[g1callg2,g2callg4,g3callg1,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg2,g2callg4,g3callg1,g4callg3] true -> true;
+[g1callg2,g2callg4,g3callg2,g4callg1] true -> true;
+[g1callg2,g2callg4,g3callg2,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg2,g2callg4,g3callg2,g4callg3] true -> true;
+[g1callg2,g2callg4,g3callg4,g4callg1] true -> true;
+[g1callg2,g2callg4,g3callg4,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg2,g2callg4,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg3,g2callg1,g3callg1,g4callg1] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg1,g3callg1,g4callg2] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg1,g3callg1,g4callg3] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg1,g3callg2,g4callg1] true -> true;
+[g1callg3,g2callg1,g3callg2,g4callg2] true -> true;
+[g1callg3,g2callg1,g3callg2,g4callg3] true -> true;
+[g1callg3,g2callg1,g3callg4,g4callg1] true -> true;
+[g1callg3,g2callg1,g3callg4,g4callg2] true -> true;
+[g1callg3,g2callg1,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg3,g2callg3,g3callg1,g4callg1] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg3,g3callg1,g4callg2] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg3,g3callg1,g4callg3] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg3,g3callg2,g4callg1] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg3,g2callg3,g3callg2,g4callg2] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg3,g2callg3,g3callg2,g4callg3] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg3,g2callg3,g3callg4,g4callg1] true -> true;
+[g1callg3,g2callg3,g3callg4,g4callg2] true -> true;
+[g1callg3,g2callg3,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg3,g2callg4,g3callg1,g4callg1] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg4,g3callg1,g4callg2] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4) & (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg3,g2callg4,g3callg1,g4callg3] true -> (g1s1' = g1g3s1) & (g1s2' = g1g3s2) & (g1s3' = g1g3s3) & (g1s4' = g1g3s4) & (g3s1' = g1g3s1) & (g3s2' = g1g3s2) & (g3s3' = g1g3s3) & (g3s4' = g1g3s4);
+[g1callg3,g2callg4,g3callg2,g4callg1] true -> true;
+[g1callg3,g2callg4,g3callg2,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg3,g2callg4,g3callg2,g4callg3] true -> true;
+[g1callg3,g2callg4,g3callg4,g4callg1] true -> true;
+[g1callg3,g2callg4,g3callg4,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg3,g2callg4,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg4,g2callg1,g3callg1,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg1,g3callg1,g4callg2] true -> true;
+[g1callg4,g2callg1,g3callg1,g4callg3] true -> true;
+[g1callg4,g2callg1,g3callg2,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg1,g3callg2,g4callg2] true -> true;
+[g1callg4,g2callg1,g3callg2,g4callg3] true -> true;
+[g1callg4,g2callg1,g3callg4,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg1,g3callg4,g4callg2] true -> true;
+[g1callg4,g2callg1,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg4,g2callg3,g3callg1,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg3,g3callg1,g4callg2] true -> true;
+[g1callg4,g2callg3,g3callg1,g4callg3] true -> true;
+[g1callg4,g2callg3,g3callg2,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4) & (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg4,g2callg3,g3callg2,g4callg2] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg4,g2callg3,g3callg2,g4callg3] true -> (g2s1' = g2g3s1) & (g2s2' = g2g3s2) & (g2s3' = g2g3s3) & (g2s4' = g2g3s4) & (g3s1' = g2g3s1) & (g3s2' = g2g3s2) & (g3s3' = g2g3s3) & (g3s4' = g2g3s4);
+[g1callg4,g2callg3,g3callg4,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg3,g3callg4,g4callg2] true -> true;
+[g1callg4,g2callg3,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+[g1callg4,g2callg4,g3callg1,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg4,g3callg1,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg4,g2callg4,g3callg1,g4callg3] true -> true;
+[g1callg4,g2callg4,g3callg2,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg4,g3callg2,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg4,g2callg4,g3callg2,g4callg3] true -> true;
+[g1callg4,g2callg4,g3callg4,g4callg1] true -> (g1s1' = g1g4s1) & (g1s2' = g1g4s2) & (g1s3' = g1g4s3) & (g1s4' = g1g4s4) & (g4s1' = g1g4s1) & (g4s2' = g1g4s2) & (g4s3' = g1g4s3) & (g4s4' = g1g4s4);
+[g1callg4,g2callg4,g3callg4,g4callg2] true -> (g2s1' = g2g4s1) & (g2s2' = g2g4s2) & (g2s3' = g2g4s3) & (g2s4' = g2g4s4) & (g4s1' = g2g4s1) & (g4s2' = g2g4s2) & (g4s3' = g2g4s3) & (g4s4' = g2g4s4);
+[g1callg4,g2callg4,g3callg4,g4callg3] true -> (g3s1' = g3g4s1) & (g3s2' = g3g4s2) & (g3s3' = g3g4s3) & (g3s4' = g3g4s4) & (g4s1' = g3g4s1) & (g4s2' = g3g4s2) & (g4s3' = g3g4s3) & (g4s4' = g3g4s4);
+endmodule 

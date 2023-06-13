@@ -1,42 +1,34 @@
 // Rock paper scissors
 csg
 
-player p1
-	player1
-endplayer
+player p1 m1 endplayer
+player p2 m2 endplayer
 
-player p2
-	player2
-endplayer
+// first player
+module m1
+        [r1] true -> true; // rock
+        [p1] true -> true; // paper
+        [s1] true -> true; // scissors
 
-const max_rounds = 100;
-
-formula stop_playing = max_rounds <= (p1_wins + p2_wins + stalemates);
-
-global p1_wins :int;
-global p2_wins: int;
-global stalemates: int;
-
-label "p1_winning" = p1_wins > p2_wins;
-label "p2_winning" = p1_wins < p2_wins;
-label "equal_scores" = p1_wins = p2_wins;
-
-module player1
-	[p1_rock] !stop_playing -> true;
-	[p1_paper] !stop_playing -> true;
-	[p1_scissors] !stop_playing -> true;
 endmodule
 
-module player2 = player1[p1_rock = p2_rock, p1_paper = p2_paper, p1_scissors = p2_scissors]endmodule
+// second player constructed through renaming
+module m2 = m1[r1=r2,p1=p2,s1=s2] endmodule
 
-module updater
-	[p1_rock, p2_rock] true -> (stalemates' = stalemates + 1);
-	[p1_rock, p2_paper] true -> (p2_wins' = p2_wins + 1);
-	[p1_rock, p2_scissors] true -> (p1_wins' = p1_wins + 1);
-	[p1_paper, p2_rock] true -> (p1_wins' = p1_wins + 1);
-	[p1_paper, p2_paper] true -> (stalemates' = stalemates + 1);
-	[p1_paper, p2_scissors] true -> (p2_wins' = p2_wins + 1);
-	[p1_scissors, p2_rock] true -> (p2_wins' = p2_wins + 1);
-	[p1_scissors, p2_paper] true -> (p1_wins' = p1_wins + 1);
-	[p1_scissors, p2_scissors] true -> (stalemates' = stalemates + 1);
+// module to record who wins
+module recorder
+
+        win : [-1..2];
+
+        [r1,r2] true -> (win'=0);
+        [r1,p2] true -> (win'=2);
+        [r1,s2] true -> (win'=1);
+
+        [p1,r2] true -> (win'=1);
+        [p1,p2] true -> (win'=0);
+        [p1,s2] true -> (win'=2);
+
+        [s1,r2] true -> (win'=2);
+        [s1,p2] true -> (win'=1);
+        [s1,s2] true -> (win'=0);
 endmodule

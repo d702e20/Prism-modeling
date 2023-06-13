@@ -1,3 +1,0 @@
-// Matching penny
-// odd and even can guarantee that odd_player always wins, untill game over
-<<even, odd>> P>=1 [("odd_player_won_round" U gameover)]
