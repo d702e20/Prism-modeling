@@ -4,7 +4,7 @@
 use criterion::*;
 use std::process::Command;
 
-const PRISM_PATH: &str = "../prism-games-3.0-linux64/bin/prism";
+const PRISM_PATH: &str = "../../prism-games/prism/bin/prism";
 const PATH_PREFIX_PRISM_BENCHES: &str = "../benchmarking/";
 const STDOUT_PATH_PREFIX: &str = "../stdout/";
 
