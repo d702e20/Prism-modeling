@@ -1,4 +1,0 @@
-// Can p1 ensure that there does not exist a state where p2 wins or there is a tie
-
-<<p1>>P>=1 [ G !(win=2) ]
-!<<p1>>P>=1 [ !(true U !(win=2))]

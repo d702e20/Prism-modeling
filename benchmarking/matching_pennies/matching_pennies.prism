@@ -1,0 +1,39 @@
+// Matching pennies
+
+csg
+
+player even
+    even_penny_player
+endplayer
+
+player odd
+    odd_penny_player
+endplayer
+
+const int winning_sum = 100;
+
+global even_sum : [0..100] init 50;
+global odd_sum: [0..100] init 50;
+global odd_won_round : bool init false;
+global even_won_round : bool init false;
+
+formula gameover = odd_sum >= winning_sum | even_sum >= winning_sum;
+
+label "game_over" = gameover;
+label "odd_won_game" =  odd_sum >= winning_sum & even_sum < winning_sum;
+label "even_won_game" = odd_sum < winning_sum & even_sum >= winning_sum;
+
+module even_penny_player
+    [even_heads] !gameover -> true;
+    [even_tails] !gameover -> true;
+    [even_wait] gameover -> true;
+endmodule
+
+module odd_penny_player = even_penny_player[even_heads=odd_heads, even_tails=odd_tails, even_wait=odd_wait] endmodule
+
+module updater
+	[even_heads, odd_heads] true -> (even_sum' = even_sum+1) & (odd_sum' = odd_sum-1)&(even_won_round' = true)&(odd_won_round' = false);
+	[even_heads, odd_tails] true -> (even_sum' = even_sum-1) & (odd_sum' = odd_sum+1)&(even_won_round' = false)&(odd_won_round' = true);
+	[even_tails, odd_heads] true -> (even_sum' = even_sum-1) & (odd_sum' = odd_sum+1)&(even_won_round' = false)&(odd_won_round' = true);
+	[even_tails, odd_tails] true -> (even_sum' = even_sum+1) & (odd_sum' = odd_sum-1)&(even_won_round' = true)&(odd_won_round' = false);
+endmodule

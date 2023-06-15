@@ -51,190 +51,183 @@ macro_rules! bench {
 
 // Matching pennies
 bench!(
-    matching_pennies_can_odd_win_round_eventually_FALSE,
-    "matching-pennies/matching-pennies.prism",
-    "matching-pennies/can_odd_win_round_eventually_FALSE.props"
-);
-bench!(
-    matching_pennies_can_they_guarantee_that_odd_always_has_larger_sum_TRUE,
-    "matching-pennies/matching-pennies.prism",
-    "matching-pennies/can_they_guarantee_that_odd_always_has_larger_sum_TRUE.props"
-);
-bench!(
-    matching_pennies_can_they_win_simultaneously_FALSE,
-    "matching-pennies/matching-pennies.prism",
-    "matching-pennies/can_they_win_simultaneously_FALSE.props"
+    mp1,
+    "matching_pennies/matching_pennies_game.prism",
+    "matching_pennies/can_odd_win_round_eventually_FALSE.props"
 );
 
-// Gossiping girls circular
 bench!(
-    gossipping_girls_circular_all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE,
-    "gossipping-girls/gossipping-circular.prism",
-    "gossipping-girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
-);
-bench!(
-    gossipping_girls_circular_all_girls_ensure_that_all_girls_omnicient_before_10_steps_TRUE,
-    "gossipping-girls/gossipping-circular.prism",
-    "gossipping-girls/all_girls_ensure_that_all_girls_omnicient_before_10_steps_TRUE.props"
-);
-bench!(gossipping_girls_circular_all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE,
-    "gossipping-girls/gossipping-circular.prism",
-    "gossipping-girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props");
-bench!(
-    gossipping_girls_circular_all_omniscient_but_first_after_10_steps_TRUE,
-    "gossipping-girls/gossipping-circular.prism",
-    "gossipping-girls/all_omniscient_but_first_after_10_steps_TRUE.props"
-);
-bench!(
-    gossipping_girls_circular_eventually_10_steps_are_passed_TRUE,
-    "gossipping-girls/gossipping-circular.prism",
-    "gossipping-girls/eventually_10_steps_are_passed_TRUE.props"
-);
-bench!(
-    gossipping_girls_circular_girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE,
-    "gossipping-girls/gossipping-circular.prism",
-    "gossipping-girls/girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE.props"
-);
-bench!(
-    gossipping_girls_circular_guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE,
-    "gossipping-girls/gossipping-circular.prism",
-    "gossipping-girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
+    mp2,
+    "matching_pennies/matching_pennies_game.prism",
+    "matching_pennies/can_they_guarantee_that_odd_always_has_larger_sum_TRUE.props"
 );
 
-// Gossiping girls total
+bench!(
+    mp3,
+    "matching_pennies/matching_pennies_game.prism",
+    "matching_pennies/can_they_win_simultaneously_FALSE.props"
+);
+
+// gossiping girls
+bench!(
+    gg1_circular,
+    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/all_girls_ensure_that_all_girls_gets_omniscient_before_10_steps_TRUE.props"
+);
 
 bench!(
-    gossipping_girls_total_all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE,
-    "gossipping-girls/gossipping-total.prism",
-    "gossipping-girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    gg2_circular,
+    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
+
 bench!(
-    gossipping_girls_total_all_girls_ensure_that_all_girls_omnicient_before_10_steps_TRUE,
-    "gossipping-girls/gossipping-total.prism",
-    "gossipping-girls/all_girls_ensure_that_all_girls_omnicient_before_10_steps_TRUE.props"
+    gg3_circular,
+    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/all_girls_ensure_that_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
-bench!(gossipping_girls_total_all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE,
-    "gossipping-girls/gossipping-total.prism",
-    "gossipping-girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props");
+
 bench!(
-    gossipping_girls_total_all_omniscient_but_first_after_10_steps_TRUE,
-    "gossipping-girls/gossipping-total.prism",
-    "gossipping-girls/all_omniscient_but_first_after_10_steps_TRUE.props"
+    gg4_circular,
+    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/all_omniscient_but_first_after_10_steps_TRUE.props"
 );
+
 bench!(
-    gossipping_girls_total_eventually_10_steps_are_passed_TRUE,
-    "gossipping-girls/gossipping-total.prism",
-    "gossipping-girls/eventually_10_steps_are_passed_TRUE.props"
+    gg5_circular,
+    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
 );
+
 bench!(
-    gossipping_girls_total_girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE,
-    "gossipping-girls/gossipping-total.prism",
-    "gossipping-girls/girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE.props"
+    gg6_circular,
+    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE.props"
 );
+
 bench!(
-    gossipping_girls_total_guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE,
-    "gossipping-girls/gossipping-total.prism",
-    "gossipping-girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
+    gg7_circular,
+    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
+);
+
+bench!(
+    gg1_total,
+    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/all_girls_ensure_that_all_girls_gets_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg2_total,
+    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg3_total,
+    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/all_girls_ensure_that_player_one_gets_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg4_total,
+    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/all_omniscient_but_first_after_10_steps_TRUE.props"
+);
+
+bench!(
+    gg5_total,
+    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
+);
+
+bench!(
+    gg6_total,
+    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE.props"
+);
+
+bench!(
+    gg7_total,
+    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
 );
 
 // Mexican standoff
 bench!(
-    mexican_standoff_can_2_players_guarantee_atleast_one_of_them_survives,
-    "mexican-standoff/mexican-3-players-1-lives.prism",
-    "mexican-standoff/can_2_players_guarantee_atleast_one_of_them_survives.props"
+    mexican_standoff_3p_3hp_lcgs_survive_threads,
+    "mexican_standoff/mexican_standoff_3p_3hp.prsim",
+    "mexican_standoff/can_p1_guarantee_to_survive_FALSE.props"
 );
+
 bench!(
-    mexican_standoff_can_3_players_guarantee_atleast_one_of_them_survives,
-    "mexican-standoff/mexican-4-players-1-lives.prism",
-    "mexican-standoff/can_3_players_guarantee_atleast_one_of_them_survives.props"
+    mexican_standoff_3p_3hp_lcgs_suicide_threads,
+    "mexican_standoff/mexican_standoff_3p_3hp.prism",
+    "mexican_standoff/can_p1_suicide_FALSE.props"
 );
+
 bench!(
-    mexican_standoff_can_4_players_guarantee_atleast_one_of_them_survives,
-    "mexican-standoff/mexican-5-players-1-lives.prism",
-    "mexican-standoff/can_4_players_guarantee_atleast_one_of_them_survives.props"
+    mexican_standoff_5p_1hp_lcgs_survive_threads,
+    "mexican_standoff/mexican_standoff_5p_1hp.prism",
+    "mexican_standoff/can_p1_guarantee_to_survive_FALSE.props"
 );
+
 bench!(
-    mexican_standoff_can_5_players_guarantee_atleast_one_of_them_survives,
-    "mexican-standoff/mexican-6-players-1-lives.prism",
-    "mexican-standoff/can_5_players_guarantee_atleast_one_of_them_survives.props"
+    mexican_standoff_5p_1hp_lcgs_suicide_threads,
+    "mexican_standoff/mexican_standoff_5p_1hp.prism",
+    "mexican_standoff/can_p1_suicide_FALSE.props"
 );
-bench!(
-    mexican_standoff_can_6_players_guarantee_atleast_one_of_them_survives,
-    "mexican-standoff/mexican-7-players-1-lives.prism",
-    "mexican-standoff/can_6_players_guarantee_atleast_one_of_them_survives.props"
-);
-bench!(
-    mexican_standoff_can_p1_guarantee_to_survive_FALSE,
-    "mexican-standoff/mexican-3-players-3-lives.prism",
-    "mexican-standoff/can_p1_guarantee_to_survive_FALSE.props"
-);
-bench!(
-    mexican_standoff_can_p1_kill_p2,
-    "mexican-standoff/mexican-3-players-1-lives.prism",
-    "mexican-standoff/can_p1_kill_p2.props"
-);
-bench!(
-    mexican_standoff_can_p1_suicide_FALSE,
-    "mexican-standoff/mexican-3-players-3-lives.prism",
-    "mexican-standoff/can_p1_suicide_FALSE.props"
-);
+
 
 // Rock paper scissors
 bench!(
-    rock_paper_scissors_p1_can_win_evantuallly_FALSE,
-    "rock-paper-scissors/rock-paper-scissors.prism",
-    "rock-paper-scissors/p1_can_win_evantuallly_FALSE.props"
+    rps2,
+    "rock_paper_scissors/rock_paper_scissors.prism",
+    "rock_paper_scissors/p1_can_win_evantuallly_FALSE.props"
 );
 bench!(
-    rock_paper_scissors_p1_never_lose_FALSE,
-    "rock-paper-scissors/rock-paper-scissors.prism",
-    "rock-paper-scissors/p1_never_lose_FALSE.props"
+    rps1,
+    "rock_paper_scissors/rock_paper_scissors.prism",
+    "rock_paper_scissors/p1_never_lose_FALSE.props"
 );
-
-//fixme: commented out benches are due to prism erroring out
-// errors with: java.lang.NullPointerException: Cannot invoke "parser.ast.Coalition.isPlayerIndexInCoalition(int, java.util.Map)" because "<parameter2>" is null
 
 criterion_group!(
     matching_pennies,
-    matching_pennies_can_odd_win_round_eventually_FALSE,
-    matching_pennies_can_they_guarantee_that_odd_always_has_larger_sum_TRUE,
-    matching_pennies_can_they_win_simultaneously_FALSE
+    mp1,
+    mp2,
+    mp3,
 );
 
 criterion_group!(
     gossiping_girls,
-    gossipping_girls_circular_all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE,
-    gossipping_girls_circular_all_girls_ensure_that_all_girls_omnicient_before_10_steps_TRUE,
-    gossipping_girls_circular_all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE,
-    gossipping_girls_circular_all_omniscient_but_first_after_10_steps_TRUE,
-    gossipping_girls_circular_eventually_10_steps_are_passed_TRUE,
-    gossipping_girls_circular_girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE,
-    gossipping_girls_circular_guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE,
-    gossipping_girls_total_all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE,
-    gossipping_girls_total_all_girls_ensure_that_all_girls_omnicient_before_10_steps_TRUE,
-    gossipping_girls_total_all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE,
-    gossipping_girls_total_all_omniscient_but_first_after_10_steps_TRUE,
-    gossipping_girls_total_eventually_10_steps_are_passed_TRUE,
-    gossipping_girls_total_girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE,
-    gossipping_girls_total_guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE,
+    gg1_circular,
+    gg2_circular,
+    gg3_circular,
+    gg4_circular,
+    gg5_circular,
+    gg6_circular,
+    gg7_circular,
+    gg1_total,
+    gg2_total,
+    gg3_total,
+    gg4_total,
+    gg5_total,
+    gg6_total,
+    gg7_total,
 );
 
 criterion_group!(
     mexican_standoff,
-    mexican_standoff_can_2_players_guarantee_atleast_one_of_them_survives,
-    mexican_standoff_can_3_players_guarantee_atleast_one_of_them_survives,
-    mexican_standoff_can_4_players_guarantee_atleast_one_of_them_survives,
-    mexican_standoff_can_5_players_guarantee_atleast_one_of_them_survives,
-    mexican_standoff_can_6_players_guarantee_atleast_one_of_them_survives,
-    mexican_standoff_can_p1_guarantee_to_survive_FALSE,
-    mexican_standoff_can_p1_kill_p2,
-    mexican_standoff_can_p1_suicide_FALSE
+    mexican_standoff_3p_3hp_lcgs_survive_threads,
+    mexican_standoff_3p_3hp_lcgs_suicide_threads,
+    mexican_standoff_5p_1hp_lcgs_survive_threads,
+    mexican_standoff_5p_1hp_lcgs_suicide_threads,
 );
 
 criterion_group!(
     rock_paper_scissors,
-    rock_paper_scissors_p1_can_win_evantuallly_FALSE,
-    rock_paper_scissors_p1_never_lose_FALSE
+    rps1,
+    rps2
 );
 
 criterion_main!(
