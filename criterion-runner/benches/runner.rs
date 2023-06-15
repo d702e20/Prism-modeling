@@ -156,7 +156,7 @@ bench!(
 // Mexican standoff
 bench!(
     mexican_standoff_3p_3hp_lcgs_survive_threads,
-    "mexican_standoff/mexican_standoff_3p_3hp.prsim",
+    "mexican_standoff/mexican_standoff_3p_3hp.prism",
     "mexican_standoff/can_p1_guarantee_to_survive_FALSE.props"
 );
 
