@@ -4,7 +4,7 @@
 use criterion::*;
 use std::process::Command;
 
-const PRISM_PATH: &str = "../prism-games-3.0-linux64/bin/prism";
+const PRISM_PATH: &str = "../../prism-games/prism/bin/prism";
 const PATH_PREFIX_PRISM_BENCHES: &str = "../benchmarking/";
 const STDOUT_PATH_PREFIX: &str = "../stdout/";
 
@@ -52,19 +52,19 @@ macro_rules! bench {
 // Matching pennies
 bench!(
     mp1,
-    "matching_pennies/matching_pennies_game.prism",
+    "matching_pennies/matching_pennies.prism",
     "matching_pennies/can_odd_win_round_eventually_FALSE.props"
 );
 
 bench!(
     mp2,
-    "matching_pennies/matching_pennies_game.prism",
+    "matching_pennies/matching_pennies.prism",
     "matching_pennies/can_they_guarantee_that_odd_always_has_larger_sum_TRUE.props"
 );
 
 bench!(
     mp3,
-    "matching_pennies/matching_pennies_game.prism",
+    "matching_pennies/matching_pennies.prism",
     "matching_pennies/can_they_win_simultaneously_FALSE.props"
 );
 
@@ -72,19 +72,19 @@ bench!(
 bench!(
     gg1_circular,
     "gossipping_girls/gossipping_girls_circular.prism",
-    "gossipping_girls/all_girls_ensure_that_all_girls_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/all_girls_ensure_that_all_girls_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg2_circular,
     "gossipping_girls/gossipping_girls_circular.prism",
-    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg3_circular,
     "gossipping_girls/gossipping_girls_circular.prism",
-    "gossipping_girls/all_girls_ensure_that_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
@@ -102,7 +102,7 @@ bench!(
 bench!(
     gg6_circular,
     "gossipping_girls/gossipping_girls_circular.prism",
-    "gossipping_girls/girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE.props"
+    "gossipping_girls/girl_one_guarantee_to_become_omniscient_before_10_steps_FALSE.props"
 );
 
 bench!(
@@ -114,19 +114,19 @@ bench!(
 bench!(
     gg1_total,
     "gossipping_girls/gossipping_girls_total_network.prism",
-    "gossipping_girls/all_girls_ensure_that_all_girls_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/all_girls_ensure_that_all_girls_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg2_total,
     "gossipping_girls/gossipping_girls_total_network.prism",
-    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg3_total,
     "gossipping_girls/gossipping_girls_total_network.prism",
-    "gossipping_girls/all_girls_ensure_that_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
@@ -144,7 +144,7 @@ bench!(
 bench!(
     gg6_total,
     "gossipping_girls/gossipping_girls_total_network.prism",
-    "gossipping_girls/girl_one_gurantee_to_become_omniscient_before_10_steps_FALSE.props"
+    "gossipping_girls/girl_one_guarantee_to_become_omniscient_before_10_steps_FALSE.props"
 );
 
 bench!(
@@ -156,7 +156,7 @@ bench!(
 // Mexican standoff
 bench!(
     mexican_standoff_3p_3hp_lcgs_survive_threads,
-    "mexican_standoff/mexican_standoff_3p_3hp.prsim",
+    "mexican_standoff/mexican_standoff_3p_3hp.prism",
     "mexican_standoff/can_p1_guarantee_to_survive_FALSE.props"
 );
 
