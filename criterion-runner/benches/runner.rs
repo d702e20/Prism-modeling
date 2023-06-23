@@ -71,85 +71,85 @@ bench!(
 // gossiping girls
 bench!(
     gg1_circular,
-    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/all_girls_ensure_that_all_girls_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg2_circular,
-    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg3_circular,
-    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg4_circular,
-    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/all_omniscient_but_first_after_10_steps_TRUE.props"
 );
 
 bench!(
     gg5_circular,
-    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
 );
 
 bench!(
     gg6_circular,
-    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/girl_one_guarantee_to_become_omniscient_before_10_steps_FALSE.props"
 );
 
 bench!(
     gg7_circular,
-    "gossipping_girls/gossipping_girls_circular.prism",
+    "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
 );
 
 bench!(
     gg1_total,
-    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/all_girls_ensure_that_all_girls_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg2_total,
-    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg3_total,
-    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
     gg4_total,
-    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/all_omniscient_but_first_after_10_steps_TRUE.props"
 );
 
 bench!(
     gg5_total,
-    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
 );
 
 bench!(
     gg6_total,
-    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/girl_one_guarantee_to_become_omniscient_before_10_steps_FALSE.props"
 );
 
 bench!(
     gg7_total,
-    "gossipping_girls/gossipping_girls_total_network.prism",
+    "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
 );
 
