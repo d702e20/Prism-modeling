@@ -183,7 +183,7 @@ bench!(
 bench!(
     rps2,
     "rock_paper_scissors/rock_paper_scissors.prism",
-    "rock_paper_scissors/p1_can_win_evantuallly_FALSE.props"
+    "rock_paper_scissors/p1_can_win_eventually_FALSE.props"
 );
 bench!(
     rps1,
