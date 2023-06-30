@@ -1,5 +1,16 @@
-// Two robots moving over a grid
-// One tries to move from the SW corner to the NE corner while the other does the reverse
+// In this scenario, 4 robots exists on an NxN grid, starting on separate corners.
+// +----+----+----+----+
+// | r3 |    |    | r2 |
+// +----+----+----+----+
+// |    |    |    |    |
+// +----+----+----+----+
+// |    |    |    |    |
+// +----+----+----+----+
+// | r1 |    |    | r4 |
+// +----+----+----+----+
+// Each robot wants to move to the opposite corner of where they start, every step
+// either standing still or moving up, down, left, or right. However, if two robots
+// ever share the same position, they crash into each other and can no longer move.
 
 // concurrent game model
 csg
@@ -10,13 +21,13 @@ player r2 robot2 endplayer
 player r3 robot3 endplayer
 player r4 robot4 endplayer
 
-const int l = 6; // size of grid
+const int N = 6; // size of grid
 
 // corner points
 const int xmin = 0;
 const int ymin = 0;
-const int xmax = l-1;
-const int ymax = l-1;
+const int xmax = N-1;
+const int ymax = N-1;
 
 // initial grid positions for the robots
 const int xi1 = xmin; const int yi1 = ymin;
@@ -30,17 +41,24 @@ const int xg2 = xmin; const int yg2 = ymin;
 const int xg3 = xmax; const int yg3 = ymin;
 const int xg4 = xmin; const int yg4 = ymax;
 
+// robots crash when they end up in same grid square
+formula crash1 = (x1=x2 & y1=y2) | (x1=x3 & y1=y3) | (x1=x4 & y1=y4);
+formula crash2 = (x2=x1 & y2=y1) | (x2=x3 & y2=y3) | (x2=x4 & y2=y4);
+formula crash3 = (x3=x1 & y3=y1) | (x3=x2 & y3=y2) | (x3=x4 & y3=y4);
+formula crash4 = (x4=x1 & y4=y1) | (x4=x2 & y4=y2) | (x4=x3 & y4=y3);
+formula any_crash = (x1=x2 & y1=y2) | (x1=x3 & y1=y3) | (x1=x4 & y1=y4) | (x2=x3 & y2=y3) | (x2=x4 & y2=y4) | (x3=x4 & y3=y4);
+
 // add labels for specifying properties
 label "goal1" = x1=xg1 & y1=yg1;
 label "goal2" = x2=xg2 & y2=yg2;
 label "goal3" = x3=xg3 & y3=yg3;
 label "goal4" = x4=xg4 & y4=yg4;
 
-// robots crash when they end up in same grid square
-label "crash1" = (x1=x2 & y1=y2) | (x1=x3 & y1=y3) | (x1=x4 & y1=y4);
-label "crash2" = (x2=x1 & y2=y1) | (x2=x3 & y2=y3) | (x2=x4 & y2=y4);
-label "crash3" = (x3=x1 & y3=y1) | (x3=x2 & y3=y2) | (x3=x4 & y3=y4);
-label "crash4" = (x4=x1 & y4=y1) | (x4=x2 & y4=y2) | (x4=x3 & y4=y3);
+label "crash1" = crash1;
+label "crash2" = crash2;
+label "crash3" = crash3;
+label "crash4" = crash4;
+label "any_crash" = any_crash;
 
 // first robot
 module robot1
@@ -48,12 +66,11 @@ module robot1
 	x1 : [xmin..xmax] init xi1; // x coordinate
 	y1 : [ymin..ymax] init yi1; // y coordinate
 
-	[n1] y1<ymax -> (y1'=y1+1);
-	[e1] x1<xmax -> (x1'=x1+1);
-	[w1] x1>xmin -> (x1'=x1-1);
-	[s1] y1<ymin -> (y1'=y1-1);
-
-	[done1] y1=yg1 & x1=xg1 -> true;
+    [wait1] true -> true;
+	[n1] !crash1 & y1<ymax -> (y1'=y1+1);
+	[e1] !crash1 & x1<xmax -> (x1'=x1+1);
+	[w1] !crash1 & x1>xmin -> (x1'=x1-1);
+	[s1] !crash1 & y1<ymin -> (y1'=y1-1);
 endmodule
 
 // second robot
@@ -62,12 +79,11 @@ module robot2
 	x2 : [xmin..xmax] init xi2; // x coordinate
 	y2 : [ymin..ymax] init yi2; // y coordinate
 
-	[n2] y2<ymax -> (y2'=y2+1);
-	[e2] x2<xmax -> (x2'=x2+1);
-	[w2] x2>xmin -> (x2'=x2-1);
-	[s2] y2<ymin -> (y2'=y2-1);
-
-	[done2] y2=yg2 & x2=xg2 -> true;
+    [wait2] true -> true;
+	[n2] !crash2 & y2<ymax -> (y2'=y2+1);
+	[e2] !crash2 & x2<xmax -> (x2'=x2+1);
+	[w2] !crash2 & x2>xmin -> (x2'=x2-1);
+	[s2] !crash2 & y2<ymin -> (y2'=y2-1);
 endmodule
 
 module robot3
@@ -75,12 +91,11 @@ module robot3
 	x3 : [xmin..xmax] init xi3; // x coordinate
 	y3 : [ymin..ymax] init yi3; // y coordinate
 
-	[n3] y3<ymax -> (y3'=y3+1);
-	[e3] x3<xmax -> (x3'=x3+1);
-	[w3] x3>xmin -> (x3'=x3-1);
-	[s3] y3<ymin -> (y3'=y3-1);
-
-	[done3] y3=yg3 & x3=xg3 -> true;
+    [wait3] true -> true;
+	[n3] !crash3 & y3<ymax -> (y3'=y3+1);
+	[e3] !crash3 & x3<xmax -> (x3'=x3+1);
+	[w3] !crash3 & x3>xmin -> (x3'=x3-1);
+	[s3] !crash3 & y3<ymin -> (y3'=y3-1);
 endmodule
 
 module robot4
@@ -88,11 +103,9 @@ module robot4
 	x4 : [xmin..xmax] init xi4; // x coordinate
 	y4 : [ymin..ymax] init yi4; // y coordinate
 
-	[n4] y4<ymax -> (y4'=y4+1);
-	[e4] x4<xmax -> (x4'=x4+1);
-	[w4] x4>xmin -> (x4'=x4-1);
-	[s4] y4<ymin -> (y4'=y4-1);
-
-	[done4] y4=yg4 & x4=xg4 -> true;
+    [wait4] true -> true;
+	[n4] !crash4 & y4<ymax -> (y4'=y4+1);
+	[e4] !crash4 & x4<xmax -> (x4'=x4+1);
+	[w4] !crash4 & x4>xmin -> (x4'=x4-1);
+	[s4] !crash4 & y4<ymin -> (y4'=y4-1);
 endmodule
-
