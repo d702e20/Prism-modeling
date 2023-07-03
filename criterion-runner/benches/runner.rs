@@ -70,87 +70,129 @@ bench!(
 
 // gossiping girls
 bench!(
-    gg1_circular,
+    gg4_circular1,
     "gossipping_girls/gossipping_girls_circular_4.prism",
-    "gossipping_girls/all_girls_ensure_that_all_girls_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/p1234_ensure_that_p1234_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
-    gg2_circular,
+    gg4_circular2,
     "gossipping_girls/gossipping_girls_circular_4.prism",
-    "gossipping_girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/p1234_ensure_p1_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
-    gg3_circular,
+    gg4_circular3,
     "gossipping_girls/gossipping_girls_circular_4.prism",
-    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/p1234_ensure_that_only_p1_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
-    gg4_circular,
+    gg4_circular4,
     "gossipping_girls/gossipping_girls_circular_4.prism",
-    "gossipping_girls/all_omniscient_but_first_after_10_steps_TRUE.props"
+    "gossipping_girls/p1234_eventually_omniscient_TRUE.props"
 );
 
 bench!(
-    gg5_circular,
+    gg4_circular5,
     "gossipping_girls/gossipping_girls_circular_4.prism",
     "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
 );
 
 bench!(
-    gg6_circular,
+    gg4_circular6,
     "gossipping_girls/gossipping_girls_circular_4.prism",
-    "gossipping_girls/girl_one_guarantee_to_become_omniscient_before_10_steps_FALSE.props"
+    "gossipping_girls/p1_guarantee_omniscience_before_10_steps_FALSE.props"
 );
 
 bench!(
-    gg7_circular,
+    gg4_circular7,
     "gossipping_girls/gossipping_girls_circular_4.prism",
-    "gossipping_girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
+    "gossipping_girls/p234_eventually_omniscient_without_p1_TRUE.props"
 );
 
 bench!(
-    gg1_total,
+    gg5_circular1,
+    "gossipping_girls/gossipping_girls_circular_5.prism",
+    "gossipping_girls/p12345_ensure_that_p12345_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg5_circular2,
+    "gossipping_girls/gossipping_girls_circular_5.prism",
+    "gossipping_girls/p12345_ensure_p1_gets_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg5_circular3,
+    "gossipping_girls/gossipping_girls_circular_5.prism",
+    "gossipping_girls/p12345_ensure_that_only_p1_gets_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg5_circular4,
+    "gossipping_girls/gossipping_girls_circular_5.prism",
+    "gossipping_girls/p12345_eventually_omniscient_TRUE.props"
+);
+
+bench!(
+    gg5_circular5,
+    "gossipping_girls/gossipping_girls_circular_5.prism",
+    "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
+);
+
+bench!(
+    gg5_circular6,
+    "gossipping_girls/gossipping_girls_circular_5.prism",
+    "gossipping_girls/p1_guarantee_omniscience_before_10_steps_FALSE.props"
+);
+
+bench!(
+    gg5_circular7,
+    "gossipping_girls/gossipping_girls_circular_5.prism",
+    "gossipping_girls/p2345_eventually_omniscient_without_p1_TRUE.props"
+);
+
+bench!(
+    gg4_total1,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
-    "gossipping_girls/all_girls_ensure_that_all_girls_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/p1234_ensure_that_p1234_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
-    gg2_total,
+    gg4_total2,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
-    "gossipping_girls/all_girls_ensure_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/p1234_ensure_p1_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
-    gg3_total,
+    gg4_total3,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
-    "gossipping_girls/all_girls_ensure_that_only_player_one_gets_omniscient_before_10_steps_TRUE.props"
+    "gossipping_girls/p1234_ensure_that_only_p1_gets_omniscient_before_10_steps_TRUE.props"
 );
 
 bench!(
-    gg4_total,
+    gg4_total4,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
-    "gossipping_girls/all_omniscient_but_first_after_10_steps_TRUE.props"
+    "gossipping_girls/p1234_eventually_omniscient_TRUE.props"
 );
 
 bench!(
-    gg5_total,
+    gg4_total5,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
 );
 
 bench!(
-    gg6_total,
+    gg4_total6,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
-    "gossipping_girls/girl_one_guarantee_to_become_omniscient_before_10_steps_FALSE.props"
+    "gossipping_girls/p1_guarantee_omniscience_before_10_steps_FALSE.props"
 );
 
 bench!(
-    gg7_total,
+    gg4_total7,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
-    "gossipping_girls/guarantee_all_girls_eventually_become_omniscient_but_not_girl_one_TRUE.props"
+    "gossipping_girls/p234_eventually_omniscient_without_p1_TRUE.props"
 );
 
 // Mexican standoff
@@ -200,20 +242,20 @@ criterion_group!(
 
 criterion_group!(
     gossiping_girls,
-    gg1_circular,
-    gg2_circular,
-    gg3_circular,
-    gg4_circular,
-    gg5_circular,
-    gg6_circular,
-    gg7_circular,
-    gg1_total,
-    gg2_total,
-    gg3_total,
-    gg4_total,
-    gg5_total,
-    gg6_total,
-    gg7_total,
+    gg4_circular1,
+    gg4_circular2,
+    gg4_circular3,
+    gg4_circular4,
+    gg4_circular5,
+    gg4_circular6,
+    gg4_circular7,
+    gg4_total1,
+    gg4_total2,
+    gg4_total3,
+    gg4_total4,
+    gg4_total5,
+    gg4_total6,
+    gg4_total7,
 );
 
 criterion_group!(
