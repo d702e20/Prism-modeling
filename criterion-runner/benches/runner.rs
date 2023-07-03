@@ -262,6 +262,18 @@ bench!(
     "mexican_standoff/can_p1_suicide_FALSE.props"
 );
 
+bench!(
+    mexican_standoff_5p_3hp_lcgs_survive_threads,
+    "mexican_standoff/mexican_standoff_5p_3hp.prism",
+    "mexican_standoff/can_p1_guarantee_to_survive_FALSE.props"
+);
+
+bench!(
+    mexican_standoff_5p_3hp_lcgs_suicide_threads,
+    "mexican_standoff/mexican_standoff_5p_3hp.prism",
+    "mexican_standoff/can_p1_suicide_FALSE.props"
+);
+
 
 // Rock paper scissors
 bench!(
@@ -320,6 +332,8 @@ criterion_group!(
     mexican_standoff_3p_3hp_lcgs_suicide_threads,
     mexican_standoff_5p_1hp_lcgs_survive_threads,
     mexican_standoff_5p_1hp_lcgs_suicide_threads,
+    mexican_standoff_5p_3hp_lcgs_suicide_threads,
+    mexican_standoff_5p_3hp_lcgs_suicide_threads,
 );
 
 criterion_group!(

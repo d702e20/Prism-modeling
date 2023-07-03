@@ -1,3 +1,5 @@
+import sys
+
 
 def generate_players(f, N: int):
     for i in range(1, N+1):
@@ -107,9 +109,13 @@ def generate_synchronizations(f, N: int):
 
 
 if __name__ == '__main__':
-    N = int(input('Number of girls: '))
+    if len(sys.argv) != 2:
+        print('Usage: python generate-circ.py <N>')
+        exit(1)
+    N = int(sys.argv[1])
     if N <= 1:
-        print('Aborting generation')
+        print('N must be greater than 1')
+        exit(1)
     print(f'Generating circular network of {N} girls...')
     file_name = f'gossipping_girls_circular_{N}.prism'
 
