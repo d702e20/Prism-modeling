@@ -93,7 +93,8 @@ label "omniscient1" = g1s1 & g1s2 & g1s3 & g1s4 & g1s5
 label "omniscient2" = g2s1 & g2s2 & g2s3 & g2s4 & g2s5;
 label "omniscient3" = g3s1 & g3s2 & g3s3 & g3s4 & g3s5
 label "omniscient4" = g4s1 & g4s2 & g4s3 & g4s4 & g4s5;
-label "allomniscient" = g1s1 & g1s2 & g1s3 & g1s4 & g1s5 & g2s1 & g2s2 & g2s3 & g2s4 & g2s5 & g3s1 & g3s2 & g3s3 & g3s4 & g3s5 & g4s1 & g4s2 & g4s3 & g4s4 & g4s5;
+label "omniscient5" = g5s1 & g5s2 & g5s3 & g5s4 & g5s5;
+label "allomniscient" = g1s1 & g1s2 & g1s3 & g1s4 & g1s5 & g2s1 & g2s2 & g2s3 & g2s4 & g2s5 & g3s1 & g3s2 & g3s3 & g3s4 & g3s5 & g4s1 & g4s2 & g4s3 & g4s4 & g4s5 & g5s1 & g5s2 & g5s3 & g5s4 & g5s5;
 
 
 const int roundmax = 20;

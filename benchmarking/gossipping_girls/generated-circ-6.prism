@@ -1,0 +1,151 @@
+// Gossipping Girls circular
+
+csg
+
+player p1
+    girl1
+endplayer
+
+player p2
+    girl2
+endplayer
+
+player p3
+    girl3
+endplayer
+
+player p4
+    girl4
+endplayer
+
+player p5
+    girl5
+endplayer
+
+player p6
+    girl6
+endplayer
+
+// Girl1's secrets
+global g1s1 : bool init true;
+global g1s2 : bool init false;
+global g1s3 : bool init false;
+global g1s4 : bool init false;
+global g1s5 : bool init false;
+global g1s6 : bool init false;
+
+// Girl2's secrets
+global g2s1 : bool init false;
+global g2s2 : bool init true;
+global g2s3 : bool init false;
+global g2s4 : bool init false;
+global g2s5 : bool init false;
+global g2s6 : bool init false;
+
+// Girl3's secrets
+global g3s1 : bool init false;
+global g3s2 : bool init false;
+global g3s3 : bool init true;
+global g3s4 : bool init false;
+global g3s5 : bool init false;
+global g3s6 : bool init false;
+
+// Girl4's secrets
+global g4s1 : bool init false;
+global g4s2 : bool init false;
+global g4s3 : bool init false;
+global g4s4 : bool init true;
+global g4s5 : bool init false;
+global g4s6 : bool init false;
+
+// Girl5's secrets
+global g5s1 : bool init false;
+global g5s2 : bool init false;
+global g5s3 : bool init false;
+global g5s4 : bool init false;
+global g5s5 : bool init true;
+global g5s6 : bool init false;
+
+// Girl6's secrets
+global g6s1 : bool init false;
+global g6s2 : bool init false;
+global g6s3 : bool init false;
+global g6s4 : bool init false;
+global g6s5 : bool init false;
+global g6s6 : bool init true;
+
+// Handy shorthands
+formula g1g2s1 = g1s1 | g2s1;
+formula g1g2s2 = g1s2 | g2s2;
+formula g1g2s3 = g1s3 | g2s3;
+formula g1g2s4 = g1s4 | g2s4;
+formula g1g2s5 = g1s5 | g2s5;
+formula g1g2s6 = g1s6 | g2s6;
+
+formula g2g3s1 = g2s1 | g3s1;
+formula g2g3s2 = g2s2 | g3s2;
+formula g2g3s3 = g2s3 | g3s3;
+formula g2g3s4 = g2s4 | g3s4;
+formula g2g3s5 = g2s5 | g3s5;
+formula g2g3s6 = g2s6 | g3s6;
+
+formula g3g4s1 = g3s1 | g4s1;
+formula g3g4s2 = g3s2 | g4s2;
+formula g3g4s3 = g3s3 | g4s3;
+formula g3g4s4 = g3s4 | g4s4;
+formula g3g4s5 = g3s5 | g4s5;
+formula g3g4s6 = g3s6 | g4s6;
+
+formula g4g5s1 = g4s1 | g5s1;
+formula g4g5s2 = g4s2 | g5s2;
+formula g4g5s3 = g4s3 | g5s3;
+formula g4g5s4 = g4s4 | g5s4;
+formula g4g5s5 = g4s5 | g5s5;
+formula g4g5s6 = g4s6 | g5s6;
+
+formula g5g6s1 = g5s1 | g6s1;
+formula g5g6s2 = g5s2 | g6s2;
+formula g5g6s3 = g5s3 | g6s3;
+formula g5g6s4 = g5s4 | g6s4;
+formula g5g6s5 = g5s5 | g6s5;
+formula g5g6s6 = g5s6 | g6s6;
+
+formula g6g1s1 = g6s1 | g1s1;
+formula g6g1s2 = g6s2 | g1s2;
+formula g6g1s3 = g6s3 | g1s3;
+formula g6g1s4 = g6s4 | g1s4;
+formula g6g1s5 = g6s5 | g1s5;
+formula g6g1s6 = g6s6 | g1s6;
+
+// Labels
+label "omniscient1" = g1s1 & g1s2 & g1s3 & g1s4 & g1s5 & g1s6;
+label "omniscient2" = g2s1 & g2s2 & g2s3 & g2s4 & g2s5 & g2s6;
+label "omniscient3" = g3s1 & g3s2 & g3s3 & g3s4 & g3s5 & g3s6;
+label "omniscient4" = g4s1 & g4s2 & g4s3 & g4s4 & g4s5 & g4s6;
+label "omniscient5" = g5s1 & g5s2 & g5s3 & g5s4 & g5s5 & g5s6;
+label "omniscient6" = g6s1 & g6s2 & g6s3 & g6s4 & g6s5 & g6s6;
+label "allomniscient" = g1s1 & g1s2 & g1s3 & g1s4 & g1s5 & g1s6 & g2s1 & g2s2 & g2s3 & g2s4 & g2s5 & g2s6 & g3s1 & g3s2 & g3s3 & g3s4 & g3s5 & g3s6 & g4s1 & g4s2 & g4s3 & g4s4 & g4s5 & g4s6 & g5s1 & g5s2 & g5s3 & g5s4 & g5s5 & g5s6 & g6s1 & g6s2 & g6s3 & g6s4 & g6s5 & g6s6;
+
+// Round counting
+const int roundmax = 20;
+global round : [0..roundmax] init 0;
+
+module counter
+	[] round<=roundmax -> (round'=min(round+1,roundmax));
+endmodule
+
+// Modules
+module girl1
+    [_1call_left] round <= roundmax -> true;
+    [_1call_right] round <= roundmax -> true;
+endmodule
+module girl2 = girl1 [_1call_left =_2call_left,_1call_right = _2call_right] endmodule
+module girl3 = girl1 [_1call_left =_3call_left,_1call_right = _3call_right] endmodule
+module girl4 = girl1 [_1call_left =_4call_left,_1call_right = _4call_right] endmodule
+module girl5 = girl1 [_1call_left =_5call_left,_1call_right = _5call_right] endmodule
+module girl6 = girl1 [_1call_left =_6call_left,_1call_right = _6call_right] endmodule
+
+// Synchronizations
+module channel
+	// TODO
+endmodule
