@@ -154,6 +154,48 @@ bench!(
 );
 
 bench!(
+    gg6_circular1,
+    "gossipping_girls/gossipping_girls_circular_6.prism",
+    "gossipping_girls/p123456_ensure_that_p123456_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg6_circular2,
+    "gossipping_girls/gossipping_girls_circular_6.prism",
+    "gossipping_girls/p123456_ensure_p1_gets_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg6_circular3,
+    "gossipping_girls/gossipping_girls_circular_6.prism",
+    "gossipping_girls/p123456_ensure_that_only_p1_gets_omniscient_before_10_steps_TRUE.props"
+);
+
+bench!(
+    gg6_circular4,
+    "gossipping_girls/gossipping_girls_circular_6.prism",
+    "gossipping_girls/p123456_eventually_omniscient_TRUE.props"
+);
+
+bench!(
+    gg6_circular5,
+    "gossipping_girls/gossipping_girls_circular_6.prism",
+    "gossipping_girls/eventually_10_steps_are_passed_TRUE.props"
+);
+
+bench!(
+    gg6_circular6,
+    "gossipping_girls/gossipping_girls_circular_6.prism",
+    "gossipping_girls/p1_guarantee_omniscience_before_10_steps_FALSE.props"
+);
+
+bench!(
+    gg6_circular7,
+    "gossipping_girls/gossipping_girls_circular_6.prism",
+    "gossipping_girls/p23456_eventually_omniscient_without_p1_TRUE.props"
+);
+
+bench!(
     gg4_total1,
     "gossipping_girls/gossipping_girls_total_network_4.prism",
     "gossipping_girls/p1234_ensure_that_p1234_omniscient_before_10_steps_TRUE.props"
@@ -256,6 +298,13 @@ criterion_group!(
     gg5_circular5,
     gg5_circular6,
     gg5_circular7,
+    gg6_circular1,
+    gg6_circular2,
+    gg6_circular3,
+    gg6_circular4,
+    gg6_circular5,
+    gg6_circular6,
+    gg6_circular7,
     gg4_total1,
     gg4_total2,
     gg4_total3,
