@@ -1,4 +1,0 @@
-// Public Good game
-// p1 always worth more
-<<p1>> P>=1 [G c1 >= c2];
-

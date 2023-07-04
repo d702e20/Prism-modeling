@@ -1,0 +1,1 @@
+<<r1,r2,r3>>P>=1  [ F ("goal1" & ! "crash1" & "goal2" & !"crash2") ]

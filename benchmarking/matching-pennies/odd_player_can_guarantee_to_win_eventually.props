@@ -1,3 +1,0 @@
-// Matching penny
-// odd player can guarantee that he wins eventually
-<<odd>> P>=1 [F odd_player_won]

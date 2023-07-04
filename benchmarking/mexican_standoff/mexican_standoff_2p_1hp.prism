@@ -1,0 +1,36 @@
+// Mexican Standoff with 2 mexicans each having 1 lives
+
+csg 
+
+player p1
+ 	shooter1
+endplayer
+
+player p2
+ 	shooter2
+endplayer
+
+const int max_health = 1;
+
+global health1 : [0..max_health] init max_health;
+global health2 : [0..max_health] init max_health;
+
+label "all_died" = health1 = 0 & health2 = 0;
+label "shooter1_won" = health1 > 0 & health2 = 0;
+label "shooter2_won" = health1 = 0 & health2 > 0;
+label "alive1" = health1 > 0;
+label "alive2" = health2 > 0;
+
+module shooter1
+	[p1wait] true -> true;
+	[p1shoot2] health1 > 0 & health2 > 0 -> true;
+endmodule
+
+module shooter2 = shooter1 [health1 = health2, health2 = health1, p1wait = p2wait, p1shoot2 = p2shoot1] endmodule
+
+module channel
+  [p1wait,p2shoot1] true -> (health1' = (health1-1));
+  [p1wait,p2wait] true -> true;
+  [p1shoot2,p2shoot1] true -> (health1' = (health1-1)) & (health2' = (health2-1));
+  [p1shoot2,p2wait] true -> (health2' = (health2-1));
+endmodule
