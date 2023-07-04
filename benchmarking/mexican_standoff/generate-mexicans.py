@@ -160,27 +160,26 @@ def make_channel(num_of_mexicans, prismfile):
     prismfile.write("endmodule")
 
 
-def main():
-    for num_of_mexicans in range(2, max_mexicans + 1):
-        for num_of_lives in range(1, max_lives + 1):
-            prismfile = open(f'mexican_standoff_{num_of_mexicans}p_{num_of_lives}hp.prism', 'w')
-            make_header(num_of_mexicans, num_of_lives, prismfile)
-            make_players(num_of_mexicans, prismfile)
-            make_const_globals(num_of_mexicans, num_of_lives, prismfile)
-            make_labels(num_of_mexicans, prismfile)
-            make_shooters(num_of_mexicans, prismfile)
-            make_channel(num_of_mexicans, prismfile)
-            prismfile.close()
-
-
 if __name__ == "__main__":
-    mexicans = sys.argv[1].split(',')
-    min_mexicans = int(mexicans[0])
-    max_mexicans = int(mexicans[1])
-    lives = sys.argv[2].split(',')
-    min_lives = int(lives[0])
-    max_lives = int(lives[1])
-    if max_mexicans > 7:
-        print("Too many mexicans, lowering to max 7")
-        max_mexicans = 7
-    main()
+    if len(sys.argv) != 3:
+        print("Usage: python mexican_standoff.py <mexicans> <lives>")
+        exit(1)
+    N = int(sys.argv[1])
+    if N <= 1:
+        print("Number of mexicans must be greater than 1")
+        exit(1)
+    H = int(sys.argv[2])
+    if H <= 0:
+        print("Number of lives must be greater than 0")
+        exit(1)
+
+    file_name = f'mexican_standoff_{N}p_{H}hp.prism'
+    with open(file_name, 'w') as f:
+        make_header(N, H, f)
+        make_players(N, f)
+        make_const_globals(N, H, f)
+        make_labels(N, f)
+        make_shooters(N, f)
+        make_channel(N, f)
+
+    print(f"{file_name} was generated successfully!")
